@@ -6,7 +6,7 @@ export default async function (client: Client) {
   console.log('ready...')
 
   setInterval(() => {
-    const listenerCount = client.guilds.cache.reduce((prev, curr) => prev + (curr.voice?.channel ? curr.voice.channel.members.filter((m) => !!m.user.bot).size : 0), 0)
+    const listenerCount = client.guilds.cache.reduce((prev, curr) => prev + (curr.voice?.channel ? curr.voice.channel.members.filter((m) => !m.user.bot).size : 0), 0)
     client.user?.setActivity(`${client.prefix}help | with ${listenerCount} listeners`)
   }, 5000)
 
