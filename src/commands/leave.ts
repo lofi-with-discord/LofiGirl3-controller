@@ -23,7 +23,7 @@ export default async function (client: Client, msg: Message, _: Query, locale: L
   const userIn = (!userAt || meAt.id !== userAt.id) ? 1 : 2
 
   if (membersIn < 1) {
-    player.stop(meAt)
+    await player.stop(meAt)
     msg.channel.send(locale('leave_success'))
     return
   }
@@ -41,7 +41,7 @@ export default async function (client: Client, msg: Message, _: Query, locale: L
     await m.awaitReactions((react, user) => react.emoji.name === '✅' && user.id === msg.author.id, { max: 1 })
   } else await msg.channel.awaitMessages((message, user) => message.content === locale('leave_force_no_react_answer', client.prefix) && user.id === msg.author.id, { max: 1 })
 
-  player.stop(meAt)
+  await player.stop(meAt)
 }
 
 export const aliases = ['leave', 'stop', '정지', '나가기']
