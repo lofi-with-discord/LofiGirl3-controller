@@ -12,9 +12,9 @@ export default async function (client: Client) {
 
   if (client.koreanbots) {
     setInterval(async () => {
-      await post('https://koreanbots.dev/api/v2/stats')
+      await post(`https://koreanbots.dev/api/v2/bots/${client.user?.id}/stats`)
         .set('Authorization', client.koreanbots!)
         .send({ servers: client.guilds.cache.size })
-    }, 60 * 60 * 1000)
+    }, 60 * 1000)
   }
 }
