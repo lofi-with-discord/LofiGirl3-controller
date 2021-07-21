@@ -58,7 +58,7 @@ export default async function registUser (client: BotClient, msg: Message, db: D
   const collected = await m.awaitReactions((r, u) => flags.includes(r.emoji.name) && u.id === msg.author.id, { max: 1 })
 
   if (!collected.first()) return
-  const choice = flags.findIndex((flag) => Object.values(flag)[0] === collected.first()?.emoji.name)
+  const choice = flags.findIndex((flag) => flag === collected.first()?.emoji.name)
   const data = { id: msg.author.id, locale: localeIds[choice] }
   await db.appendUserData(data)
 
