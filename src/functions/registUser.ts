@@ -35,7 +35,10 @@ export default async function registUser (client: BotClient, msg: Message, db: D
 
     const [, choice] = collected.first()!.content.split(' ')
     const data = { id: msg.author.id, locale: choice }
-    await db.appendUserData(data)
+
+    const user = await db.getUserData(msg.author)
+    if (!user) await db.appendUserData(data)
+    else await db.updateUserData(data)
 
     return data
   }
@@ -60,7 +63,10 @@ export default async function registUser (client: BotClient, msg: Message, db: D
   if (!collected.first()) return
   const choice = flags.findIndex((flag) => flag === collected.first()?.emoji.name)
   const data = { id: msg.author.id, locale: localeIds[choice] }
-  await db.appendUserData(data)
+
+  const user = await db.getUserData(msg.author)
+  if (!user) await db.appendUserData(data)
+  else await db.updateUserData(data)
 
   return data
 }
