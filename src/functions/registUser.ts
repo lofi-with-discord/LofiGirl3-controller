@@ -18,7 +18,7 @@ export default async function registUser (client: BotClient, msg: Message, db: D
 
     for (const index in flags) {
       messages.push(
-        `${flags[index]} ${locales[index]} (\`${client.prefix}locale ${localeIds[index]}\`)\n` +
+        `${flags[index]} ${locales[index]} (\`${client.prefix}set ${localeIds[index]}\`)\n` +
         `- ${translaters[index]}`
       )
     }
@@ -28,7 +28,7 @@ export default async function registUser (client: BotClient, msg: Message, db: D
     const collected =
       await m.channel.awaitMessages((m) =>
         m.author.id === msg.author.id &&
-        m.content.startsWith(`${client.prefix}locale `) &&
+        m.content.startsWith(`${client.prefix}set `) &&
         localeIds.includes(m.content.split(' ')[1]), { max: 1 })
 
     if (!collected.first()) return

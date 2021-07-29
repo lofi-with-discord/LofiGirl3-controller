@@ -1,4 +1,5 @@
 import { get } from 'superagent'
+import { Locale } from '../types'
 import { Message } from 'discord.js'
 import Query from '../structures/Query'
 import Client from '../structures/BotClient'
@@ -37,8 +38,10 @@ export default function onMessage (db: DatabaseClient, i18n: I18nParser, player:
     let userData = await db.getUserData(msg.author)
     if (!userData) userData = await registUser(client, msg, db, i18n)
 
-    const locale = (phrase: string, ...args: any[]) =>
+    const locale: Locale = (phrase: string, ...args: any[]) =>
       i18n.__({ locale: userData?.locale, phrase }, ...args)
+
+    locale.i18n = i18n
 
     if (!client.koreanbots) return target.default(client, msg, query, locale, db, player)
     if (voteCache.includes(msg.author.id)) return target.default(client, msg, query, locale, db, player)
