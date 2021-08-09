@@ -1,4 +1,0 @@
-[submodule "i18n"]
-	path = i18n
-  branch = main
-	url = git@github.com:lofi-with-discord/LofiGirl-i18n.git
