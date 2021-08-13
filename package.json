@@ -7,7 +7,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node ./dist/index.js",
-    "shard": "node ./native-utils/sharding.hs",
+    "shard": "node ./native-utils/sharding.js",
     "dev": "nodemon -e ts --exec \"yarn build && yarn start || exit 1\""
   },
   "dependencies": {
