@@ -1,4 +1,3 @@
-import { Guild } from 'discord.js'
 import { post } from 'superagent'
 import Client from '../structures/BotClient'
 
@@ -7,11 +6,8 @@ export default async function (client: Client) {
   console.log('ready...')
 
   setInterval(async () => {
-    const listenerCount = client.shard
-      ? (await client.shard?.fetchClientValues('guilds.cache') as Guild[][]).reduce((prev, curr) => prev + (curr.reduce((prev2, curr2) => prev2 + (curr2.me?.voice?.channel ? curr2.me.voice.channel.members.filter((m) => !m.user.bot).size : 0), 0)), 0)
-      : client.guilds.cache.reduce((prev, curr) => prev + (curr.me?.voice?.channel ? curr.me.voice.channel.members.filter((m) => !m.user.bot).size : 0), 0)
-
-    client.user?.setActivity(`${client.prefix}help | with ${listenerCount} listeners`)
+    const listenerCount = client.guilds.cache.reduce((prev, curr) => prev + (curr.me?.voice?.channel ? curr.me.voice.channel.members.filter((m) => !m.user.bot).size : 0), 0)
+    client.user?.setActivity(`${client.prefix}help | ${client.shard ? `shard #${client.shard?.ids[0]}` : ''} with ${listenerCount} listeners`)
   }, 5000)
 
   if (client.koreanbots) {
