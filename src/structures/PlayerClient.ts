@@ -19,15 +19,15 @@ export default class PlayerClient {
   public play = (channel: VoiceChannel) =>
     this.endpoints.forEach(async (endpoint) =>
       await post(`${endpoint}/connection?channel=${channel.id}`)
-        .set('Authorization', this.password))
+        .set('Authorization', this.password).catch(() => ({})))
 
   public stop = (channel: VoiceChannel) =>
     this.endpoints.forEach(async (endpoint) =>
       await del(`${endpoint}/connection?channel=${channel.id}`)
-        .set('Authorization', this.password))
+        .set('Authorization', this.password).catch(() => ({})))
 
   public clear = () =>
     this.endpoints.forEach(async (endpoint) =>
       await del(`${endpoint}/cache`)
-        .set('Authorization', this.password))
+        .set('Authorization', this.password).catch(() => ({})))
 }
