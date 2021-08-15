@@ -11,4 +11,5 @@ const db = new DatabaseClient()
 const player = new PlayerClient()
 
 client.registEvent('ready', onReady)
+client.registEvent('rateLimit', console.log)
 client.registEvent('message', onMessage(db, i18n, player))
