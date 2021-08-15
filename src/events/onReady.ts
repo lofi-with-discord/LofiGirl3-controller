@@ -18,7 +18,7 @@ export default async function (client: Client) {
 
       await post(`https://koreanbots.dev/api/v2/bots/${client.user?.id}/stats`)
         .set('Authorization', client.koreanbots!)
-        .send({ servers })
+        .send({ servers }).catch(() => {})
     }, 60 * 1000)
   }
 }
