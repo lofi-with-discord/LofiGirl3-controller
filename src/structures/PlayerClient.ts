@@ -16,18 +16,24 @@ export default class PlayerClient {
     this.password = process.env.CONTROL_PASSWORD!
   }
 
-  public play = (channel: VoiceChannel) =>
-    this.endpoints.forEach(async (endpoint) =>
+  public async play (channel: VoiceChannel) {
+    for (const endpoint of this.endpoints) {
       await post(`${endpoint}/connection?channel=${channel.id}`)
-        .set('Authorization', this.password).catch(() => ({})))
+        .set('Authorization', this.password).catch(() => ({}))
+    }
+  }
 
-  public stop = (channel: VoiceChannel) =>
-    this.endpoints.forEach(async (endpoint) =>
+  public async stop (channel: VoiceChannel) {
+    for (const endpoint of this.endpoints) {
       await del(`${endpoint}/connection?channel=${channel.id}`)
-        .set('Authorization', this.password).catch(() => ({})))
+        .set('Authorization', this.password).catch(() => ({}))
+    }
+  }
 
-  public clear = () =>
-    this.endpoints.forEach(async (endpoint) =>
+  public async clear () {
+    for (const endpoint of this.endpoints) {
       await del(`${endpoint}/cache`)
-        .set('Authorization', this.password).catch(() => ({})))
+        .set('Authorization', this.password).catch(() => ({}))
+    }
+  }
 }

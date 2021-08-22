@@ -50,7 +50,11 @@ export default function onMessage (db: DatabaseClient, i18n: I18nParser, player:
       .set('Authorization', client.koreanbots)
       .catch((err) => { console.log(err); return { status: 400, body: { } } })
 
-    if (status !== 200 || body?.data?.voted) return target.default(client, msg, query, locale, db, player)
+    if (status !== 200 || body?.data?.voted) {
+      target.default(client, msg, query, locale, db, player)
+      voteCache.push(msg.author.id)
+      return
+    }
 
     const perm2 = hasPermissions(client.user, msg.channel, ['EMBED_LINKS'])
     if (!perm2) return msg.channel.send(locale('give_me_heart_no_embed', `https://koreanbots.dev/bots/${client.user.id}`))
